@@ -78,7 +78,7 @@ const FoodBox = ({ item, index }) => {
     <View key={index} className="px-4 ">
       <TouchableOpacity
         activeOpacity={0.8}
-        className="bg-[#FED000] rounded-b-[50px] rounded-t-[20px] "
+        className="bg-[#fefefe] shadow-xl rounded-b-[50px] rounded-t-[20px] "
         onPress={
           () => {}
           // router.push({
@@ -224,8 +224,10 @@ const FoodBox = ({ item, index }) => {
             </Text>
             <Text
               className={`${
-                item.foodType === "veg" ? "bg-[#14ab03]" : "bg-[#a60a0a]"
-              }  text-white font-bold text-[14px] rounded-[5px] px-2 py-1`}
+                item.foodType === "veg"
+                  ? "bg-[#43fe2e3b] text-[#31a424]"
+                  : "bg-[#a60a0a1b] text-[#a60a0a]"
+              }   font-bold text-[14px] rounded-[5px] px-2 py-1`}
             >
               {item.foodType}
             </Text>
@@ -235,8 +237,8 @@ const FoodBox = ({ item, index }) => {
         <View
           style={{
             borderWidth: 0.5,
-            borderColor: "white",
-            marginHorizontal: 10,
+            borderColor: "black",
+            marginHorizontal: 20,
             marginTop: 5,
           }}
         />

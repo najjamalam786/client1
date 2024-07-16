@@ -11,10 +11,11 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
 import { useDispatch, useSelector } from "react-redux";
-
+import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 import CartItem from "../../components/CartItem.jsx";
 import { addTotalPrice } from "../../redux/features/CartSlice.js";
+import { addLocationCoordinates } from "../../redux/features/UserSlice.js";
 
 const Cart = () => {
   const router = useRouter();
@@ -234,7 +235,9 @@ const Cart = () => {
           </View>
 
           <Pressable
-            onPress={() => {
+            onPress={async () => {
+              let { coords } = await Location.getCurrentPositionAsync();
+              dispatchEvent(addLocationCoordinates(coords));
               dispatchEvent(addTotalPrice(total + 90));
               router.push({
                 pathname: "/address",

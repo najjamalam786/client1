@@ -11,6 +11,7 @@ import {
   addStreetLocation,
   addUserLocation,
 } from "../redux/features/UserSlice.js";
+import { useSelector } from "react-redux";
 
 // const { width, height } = Dimensions.get("window");
 
@@ -21,6 +22,7 @@ const UserLocation = () => {
   const [displayCurrentLocation, setDisplayCurrentLocation] = useState(
     "fetching your location..."
   );
+  const { coordinate } = useSelector((state) => state.user);
 
   const dispatchEvent = useDispatch();
 
@@ -48,6 +50,8 @@ const UserLocation = () => {
 
     let { coords } = await Location.getCurrentPositionAsync();
     dispatchEvent(addLocationCoordinates(coords));
+    console.log("coords", coords);
+    console.log("coordinate", coordinate);
     if (coords) {
       const { latitude, longitude } = coords;
 

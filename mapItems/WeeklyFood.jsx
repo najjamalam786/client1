@@ -32,7 +32,7 @@ const WeeklyFood = ({ week }) => {
   return (
     <View key={week._id} className="py-4 px-2">
       <View className="flex-row justify-between items-center ">
-        <Text className="text-[12px] font-[500] bg-[#FED000] px-2 py-[10px] rounded-l-[20px] tracking-[1.5px] text-gray-800 uppercase">
+        <Text className="text-[12px] font-[500] bg-[#fcd62b9e] px-1 pl-[10px] py-[10px] rounded-l-[20px] tracking-[1.5px] text-gray-800 uppercase">
           Week {week.index}
         </Text>
         <ScrollView
@@ -54,15 +54,15 @@ const WeeklyFood = ({ week }) => {
                   className={`${
                     filter === item.urlParamName
                       ? "bg-[#ff0021]"
-                      : "bg-[#25cb25]"
-                  } mx-[8px] my-[20px] p-[5px] px-[10px] rounded-lg`}
+                      : "bg-[#ffffff] border-[#b3b2b2] border-[0.4px] "
+                  } mx-[8px] my-[20px] p-[5px] px-[10px] shadow-xl rounded-lg`}
                 >
                   <View>
                     <Text
                       className={`${
                         filter === item.urlParamName
                           ? "text-white"
-                          : "text-white "
+                          : "text-slate-900 "
                       } text-[14px] font-[600] px-[5px]`}
                     >
                       {item.name}

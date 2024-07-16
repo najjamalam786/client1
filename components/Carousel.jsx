@@ -69,7 +69,7 @@ const Carousel = () => {
         return (
           <View
             key={index}
-            className="w-[10px] h-[10px] rounded-full mx-2 bg-[#25cb25] "
+            className="w-[10px] h-[10px] rounded-full mx-2 bg-[#1e9a1e70] "
           ></View>
         );
       } else {
@@ -84,28 +84,28 @@ const Carousel = () => {
   };
 
   // Auto Scroll (looping)
-  // useEffect(() => {
-  //   // if currentIndex === last index --> then jump back to the first index
-  //   let interval = setInterval(() => {
-  //     if (currentIndex === images.length - 1) {
-  //       flatlistRef.current?.scrollToIndex({
-  //         index: 0,
-  //         animated: true,
-  //       });
-  //     }
-  //     // else if currentIndex === 0 --> then jump to the last index
-  //     else if (currentIndex >= 0) {
-  //       flatlistRef.current?.scrollToIndex({
-  //         index: currentIndex + 1,
-  //         animated: true,
-  //       });
-  //     }
-  //   }, 2000);
+  useEffect(() => {
+    // if currentIndex === last index --> then jump back to the first index
+    let interval = setInterval(() => {
+      if (currentIndex === images.length - 1) {
+        flatlistRef.current?.scrollToIndex({
+          index: 0,
+          animated: true,
+        });
+      }
+      // else if currentIndex === 0 --> then jump to the last index
+      else if (currentIndex >= 0) {
+        flatlistRef.current?.scrollToIndex({
+          index: currentIndex + 1,
+          animated: true,
+        });
+      }
+    }, 4000);
 
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, [currentIndex]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentIndex]);
 
   const getItemLayout = (data, index) => {
     return {

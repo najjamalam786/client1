@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import moment from "moment";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MapView, { Marker, Polyline } from "react-native-maps";
+import MapView, { Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
 import TabBar from "../../components/TabBar";
@@ -65,6 +65,7 @@ const Order = () => {
 
         <MapView
           ref={mapView}
+          provider={PROVIDER_GOOGLE}
           initialRegion={{
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,

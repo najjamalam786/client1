@@ -96,7 +96,7 @@ const Home = () => {
   return (
     <>
       <SafeAreaView className="flex-1">
-        <ScrollView style={{ flex: 1, backgroundColor: "#f8f8f8" }}>
+        <ScrollView className="flex-1 bg-[#f5f5f5] ">
           <View className="flex-row items-center justify-between px-4 ">
             <View className="flex-row items-center gap-1 ">
               <Image

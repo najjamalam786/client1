@@ -1,5 +1,0 @@
-setx /M REACT_NATIVE_PACKAGER_HOSTNAME 192.168.10.188
-ipconfig
-npx expo install --fix
-npx expo start --clear
-// "build": "cd client && npm install && npm run build"

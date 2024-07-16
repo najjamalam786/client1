@@ -14,7 +14,10 @@ const HomeLayout = () => {
           <Stack.Screen name="cart" />
           <Stack.Screen name="confirmOrder" />
           <Stack.Screen name="address" />
+          <Stack.Screen name="addItems" />
           <Stack.Screen name="orderDetails" />
+          <Stack.Screen name="seeorders" />
+          <Stack.Screen name="user" />
         </Stack>
       </PersistGate>
     </Provider>

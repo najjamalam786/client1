@@ -33,7 +33,7 @@ yarn-error.*
 .env
 # typescript
 *.tsbuildinfo
-setx.tex
+setx.txt
 app.json
 eas.json
 tailwind.config.js

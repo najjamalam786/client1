@@ -1,14 +1,5 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Touchable,
-  TouchableOpacity,
-  StatusBar,
-  Pressable,
-} from "react-native";
-import MapView from "react-native-maps";
+import { View, Text, Image, ScrollView, Pressable } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Alert } from "react-native";
@@ -108,6 +99,7 @@ const Address = () => {
         <View className="flex-1 ">
           <MapView
             ref={mapView}
+            provider={PROVIDER_GOOGLE}
             initialRegion={state.region}
             onRegionChangeComplete={(value) => onChangeValue(value)}
             showsMyLocationButton={true}
