@@ -12,8 +12,8 @@ import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import Carousel from "../../components/Carousel";
 import Categories from "../../components/Categories";
-import Explore from "../../components/Explore";
-import HotelList from "../../components/HotelList";
+// import Explore from "../../components/Explore";
+// import HotelList from "../../components/HotelList";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Offer from "../../components/Offer";
 import TabBar from "../../components/TabBar";
@@ -93,20 +93,19 @@ const Home = () => {
   ];
 
   // console.log("my address", displayCurrentLocation);
+
   return (
     <>
       <SafeAreaView className="flex-1">
         <ScrollView className="flex-1 bg-[#f5f5f5] ">
           <View className="flex-row items-center justify-between px-4 ">
-            <View className="flex-row items-center gap-1 ">
-              <Image
-                source={require("../../assets/chillis_Logo.png")}
-                style={{ width: 40, height: 40 }}
-              />
-              <Text className="text-[24px] tracking-[1px] font-[800] text-[#e80013] ">
-                Chillis
-              </Text>
-            </View>
+            <Image
+              source={require("../../assets/t_logo.png")}
+              style={{ width: 40, height: 40 }}
+            />
+            <Text className="text-[22px] tracking-[1px] font-[800] text-[#e80013] ">
+              TIFFINBOX
+            </Text>
 
             <TouchableOpacity
               onPress={() => router.push("/user")}
@@ -126,48 +125,7 @@ const Home = () => {
           <Carousel />
           <Offer />
 
-          {/* <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-            className=" gap-[10px]  mt-[20px] px-[10px]"
-          >
-            {recommended.map((item, index) => (
-              <View
-                key={index}
-                className="bg-white border-[1px] border-[#e0e0e0] rounded-[10px] p-2 "
-              >
-                <View className="flex flex-row items-center justify-center">
-                  <Image
-                    source={{ uri: item.image }}
-                    className="w-[100px] h-[100px] rounded-l-[16px] mr-[10px] "
-                  />
-
-                  <View className="flex flex-col mr-4 ">
-                    <Text className="text-[16px] font-[500] ">{item.name}</Text>
-                    <Text className="text-gray-400 text-[14px] font-semibold">
-                      {item.type}
-                    </Text>
-
-                    <View className="mt-[14px] flex flex-row items-center space-x-1">
-                      <Ionicons name="time" size={24} color="green" />
-                      <Text className="text-gray-500 text-[14px] font-semibold">
-                        {item.time} mins
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </ScrollView> */}
-
           <Categories />
-          <Explore />
-
-          <HotelList />
         </ScrollView>
         <CartBox />
         <TabBar />

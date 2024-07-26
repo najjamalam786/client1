@@ -55,15 +55,14 @@ const OTPverify = () => {
     }
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient colors={["#F8C500", "#FADA2D"]} style={{ flex: 1 }}>
+    <>
+      <LinearGradient colors={["#10b98f", "#c3faec"]} style={{ flex: 1 }}>
         {/* <StatusBar hidden /> */}
-        <StatusBar barStyle="dark-content" backgroundColor="#F8C500" />
         <View className="h-[220px]  items-center justify-center px-[20px] pb-[4px]">
-          <Text className="text-[24px] font-bold text-[#ff0021] ">
+          <Text className="text-[26px] font-[800]  text-[#ffffff] ">
             OTP Verification
           </Text>
-          <Text className="text-[16px] font-semibold text-[#373837] ">
+          <Text className="text-[16px] font-semibold text-[#000000] ">
             Please enter your OTP to continue
           </Text>
         </View>
@@ -78,29 +77,29 @@ const OTPverify = () => {
               textInputStyle={style.OTPstyle}
               handleTextChange={(text) => setOtp(text)}
               inputCount={5}
-              tintColor={"#4bb04b"}
+              tintColor={"#10b98f"}
             />
             <View className="flex-row justify-between ">
-              <Text className="text-[18px] text-[#4bb04b] font-bold py-2">
+              <Text className="text-[18px] text-[#10b98f] font-bold py-2">
                 Resend OTP
               </Text>
-              <Text className="text-[18px] text-[#4bb04b] font-bold py-2">
+              <Text className="text-[18px] text-[#10b98f] font-bold py-2">
                 00:00
               </Text>
             </View>
 
             <Pressable
               onPress={() => submitOTP()}
-              className="mt-[28px] bg-[#ff0021] rounded-[10px] py-4"
+              className="mt-[28px] bg-[#10b98f] rounded-[10px] py-4"
             >
-              <Text className="text-[18px] text-center text-[#ffff00] uppercase font-bold ">
+              <Text className="text-[18px] text-center text-[#ffffff] uppercase font-bold ">
                 Submit
               </Text>
             </Pressable>
           </KeyboardAwareScrollView>
         </View>
       </LinearGradient>
-    </SafeAreaView>
+    </>
   );
 };
 

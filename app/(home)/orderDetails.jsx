@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const OrderDetails = () => {
   const params = useLocalSearchParams();
-  const [orderDetails, setOrderDetails] = useState();
+  const [orderDetails, setOrderDetails] = useState(null);
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const fetchOrderDetails = async () => {

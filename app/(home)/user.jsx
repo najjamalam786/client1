@@ -42,32 +42,76 @@ const UserPage = () => {
     }
   };
   return (
-    <SafeAreaView className="flex-1 bg-[#e8e6e6]">
-      <ScrollView className="flex-1 bg-[#e8e6e6]">
-        <View className="flex-row items-center bg-white justify-between px-4 pt-4">
+    <SafeAreaView className="flex-1 bg-[#d4edee81]">
+      <ScrollView className="flex-1 bg-[#d4edee81]">
+        <View className="flex-row items-center bg-white justify-between px-4 py-4">
           <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={24} color="black" />
+            <Ionicons
+              name="arrow-back"
+              size={24}
+              color="black"
+              style={{
+                backgroundColor: "#d9d9da",
+                borderRadius: 50,
+                padding: 10,
+              }}
+            />
           </TouchableOpacity>
 
           <Text className="text-[16px] font-[600] text-[#070707] ">
-            Hey! Welcome UserName
+            Hey! Welcome
           </Text>
         </View>
-        <UserLocation />
-        <View className="flex-1 py-4 items-center justify-center bg-[#F8C500]">
+        <TouchableOpacity
+          onPress={() => Alert.alert("User Details")}
+          className="flex-row items-center justify-start space-x-2 p-4 bg-white mt-4 mx-4 rounded-l-[50px] rounded-r-[20px]"
+        >
+          <View
+            style={{
+              backgroundColor: "#25cb25",
+              width: 65,
+              height: 65,
+              borderRadius: 35,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text className="text-white text-[18px] font-bold">
+              <Ionicons name="person" size={30} color="white" />
+            </Text>
+          </View>
+          <View className="flex-col items-start space-y-2">
+            <Text className="text-[16px] font-[600] text-[#070707] ">
+              #{userId}
+            </Text>
+            <Text className="text-[12px] font-semibold text-[#dd3232] ">
+              View Profile Details
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <View className=" px-4 pt-6 bg-white mt-4">
+          <Text className="text-[16px] font-[800] text-[#070707] ">
+            Your Address
+          </Text>
+          <UserLocation />
+        </View>
+        <View className="flex-1 py-4 items-center justify-center bg-[#d4edee81]">
           <View className="flex-row items-center">
             <TouchableOpacity
-              onPress={() => router.push("/addItems")}
-              className="flex items-center justify-center w-[180px]  rounded-[16px] p-2 mx-[10px] border-[1px] border-gray-300 bg-white"
+              onPress={() => Alert.alert("Admin")}
+              className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >
-              <Image
-                source={require("../../assets/chillis_Logo.png")}
-                className="w-[80px] h-[80px]"
-              />
+              <View className="bg-[#42b0ff4e] w-[180px] h-[100px] items-center justify-center rounded-t-[16px] ">
+                <Image
+                  source={require("../../assets/bag.png")}
+                  className="w-[60px] h-[60px]"
+                />
+              </View>
 
-              <Text className="text-[18px] font-[500] mt-[6px]">Add Items</Text>
+              <Text className="text-[18px] font-[500] mt-[6px]">Profile</Text>
               <Text className="text-[10px] text-gray-500 mt-[3px]">
-                All food Items created here
+                All order Items
               </Text>
             </TouchableOpacity>
 
@@ -75,12 +119,14 @@ const UserPage = () => {
               onPress={() => {
                 orderHandler();
               }}
-              className="flex items-center justify-center w-[180px]  rounded-[16px] p-2 mx-[10px] border-[1px] border-gray-300 bg-white"
+              className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >
-              <Image
-                source={require("../../assets/chillis_Logo.png")}
-                className="w-[80px] h-[80px]"
-              />
+              <View className="bg-[#42b0ff4e] w-[180px] h-[100px] items-center justify-center rounded-t-[16px] ">
+                <Image
+                  source={require("../../assets/bag.png")}
+                  className="w-[60px] h-[60px]"
+                />
+              </View>
 
               <Text className="text-[18px] font-[500] mt-[6px]">Order</Text>
               <Text className="text-[10px] text-gray-500 mt-[3px]">
@@ -92,36 +138,37 @@ const UserPage = () => {
           <View className="flex-row items-center mt-4">
             <TouchableOpacity
               onPress={() => {
-                dispatchEvent(addCartItems([]));
-                Alert.alert("Delete Cart Items Successfull");
+                router.push("/cart");
               }}
-              className="flex items-center justify-center w-[180px]  rounded-[16px] p-2 mx-[10px] border-[1px] border-gray-300 bg-white"
+              className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >
-              <Image
-                source={require("../../assets/chillis_Logo.png")}
-                className="w-[80px] h-[80px]"
-              />
+              <View className="bg-[#42b0ff4e] w-[180px] h-[100px] items-center justify-center rounded-t-[16px] ">
+                <Image
+                  source={require("../../assets/bag.png")}
+                  className="w-[60px] h-[60px]"
+                />
+              </View>
 
-              <Text className="text-[18px] font-[500] mt-[6px]">
-                Delete Cart
-              </Text>
+              <Text className="text-[18px] font-[500] mt-[6px]">Your Cart</Text>
               <Text className="text-[10px] text-gray-500 mt-[3px]">
                 All cart items delete here
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => Alert.alert("Admin")}
-              className="flex items-center justify-center w-[180px]  rounded-[16px] p-2 mx-[10px] border-[1px] border-gray-300 bg-white"
+              onPress={() => router.push("/addItems")}
+              className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >
-              <Image
-                source={require("../../assets/chillis_Logo.png")}
-                className="w-[80px] h-[80px]"
-              />
+              <View className="bg-[#3488db] w-[178px] h-[100px] items-center justify-center rounded-t-[16px] ">
+                <Image
+                  source={require("../../assets/bag.png")}
+                  className="w-[60px] h-[60px]"
+                />
+              </View>
 
-              <Text className="text-[18px] font-[500] mt-[6px]">Profile</Text>
+              <Text className="text-[18px] font-[500] mt-[6px]">Add Items</Text>
               <Text className="text-[10px] text-gray-500 mt-[3px]">
-                All order Items
+                All food Items created here
               </Text>
             </TouchableOpacity>
           </View>

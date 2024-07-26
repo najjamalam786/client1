@@ -32,7 +32,7 @@ const WeeklyFood = ({ week }) => {
   return (
     <View key={week._id} className="py-4 px-2">
       <View className="flex-row justify-between items-center ">
-        <Text className="text-[12px] font-[500] bg-[#fcd62b9e] px-1 pl-[10px] py-[10px] rounded-l-[20px] tracking-[1.5px] text-gray-800 uppercase">
+        <Text className="text-[12px] font-[500] bg-[#62fc5c] px-1 pl-[10px] py-[10px] rounded-l-[20px] tracking-[1.5px] text-gray-800 uppercase">
           Week {week.index}
         </Text>
         <ScrollView

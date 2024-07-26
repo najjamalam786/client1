@@ -1,44 +1,29 @@
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import WeeklyFood from "../mapItems/WeeklyFood";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartItems } from "../redux/features/CartSlice";
 
 const Categories = () => {
   const [weeks, setWeeks] = useState([]);
-
-  //categories
-  // const items = [
-  //   {
-  //     id: "1",
-  //     name: "Sunday",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Monday",
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Tuesday",
-  //   },
-  //   {
-  //     id: "4",
-  //     name: "Wednesday",
-  //   },
-  //   {
-  //     id: "5",
-  //     name: "Thursday",
-  //   },
-  //   {
-  //     id: "6",
-  //     name: "Friday",
-  //   },
-  //   {
-  //     id: "7",
-  //     name: "Saturday",
-  //   },
-  // ];
+  const [isLoading, setIsLoading] = useState(true);
+  const { userId } = useSelector((state) => state.user);
+  const dispatchEvent = useDispatch();
 
   useEffect(() => {
+    const fetchCartData = async () => {
+      await axios
+        .post(`${process.env.EXPO_PUBLIC_API_URL}/api/user/get-cart`, {
+          userId: userId,
+        })
+        .then((response) => {
+          dispatchEvent(addCartItems(response.data));
+        });
+    };
+
+    fetchCartData();
+
     const getWeeks = async () => {
       try {
         await axios
@@ -46,9 +31,10 @@ const Categories = () => {
           .then((response) => {
             const data = response.data;
             setWeeks(data);
+            setIsLoading(false);
           });
       } catch (error) {
-        console.log(error);
+        console.log("Catagories weeks error");
       }
     };
 
@@ -62,25 +48,14 @@ const Categories = () => {
           Our Hot Dishes
         </Text>
         <View className="border-b-[2px] border-gray-300 mx-[100px]" />
-        {weeks &&
-          weeks.map((week) => <WeeklyFood key={week._id} week={week} />)}
-      </View>
 
-      <View>
-        {/* <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={items}
-          renderItem={({ item }) => (
-            <TouchableOpacity className="mt-[5px] " activeOpacity={0.5}>
-              <View className="mx-[8px] my-[20px] p-[5px] px-[10px] bg-[#ff0021] rounded-lg">
-                <Text className="text-[14px] font-[600] px-[5px] text-white ">
-                  {item.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        /> */}
+        {isLoading ? (
+          <View className="flex-1 justify-center items-center h-[300px]">
+            <ActivityIndicator size={50} color="red" />
+          </View>
+        ) : (
+          weeks.map((week) => <WeeklyFood key={week._id} week={week} />)
+        )}
       </View>
     </>
   );

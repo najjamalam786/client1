@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import * as LocationGeocoding from "expo-location";
@@ -11,18 +11,17 @@ import {
   addStreetLocation,
   addUserLocation,
 } from "../redux/features/UserSlice.js";
-import { useSelector } from "react-redux";
 
 // const { width, height } = Dimensions.get("window");
 
 // const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const UserLocation = () => {
-  const [streetLocation, setStreetLocation] = useState(false);
+  const [streetLocation, setStreetLocation] = useState("Set Your Location");
   const [displayCurrentLocation, setDisplayCurrentLocation] = useState(
     "fetching your location..."
   );
-  const { coordinate } = useSelector((state) => state.user);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatchEvent = useDispatch();
 
@@ -48,38 +47,48 @@ const UserLocation = () => {
     //   accuracy: Location.Accuracy.High,
     // });
 
-    let { coords } = await Location.getCurrentPositionAsync();
-    dispatchEvent(addLocationCoordinates(coords));
-    console.log("coords", coords);
-    console.log("coordinate", coordinate);
-    if (coords) {
-      const { latitude, longitude } = coords;
+    try {
+      const { coords } = await Location.getCurrentPositionAsync();
+      if (coords) {
+        dispatchEvent(addLocationCoordinates(coords));
+        const { latitude, longitude } = coords;
+        // console.log("latitude", latitude, "longitude", longitude);
+        // console.log("coords", coords);
+        const response = await Location.reverseGeocodeAsync({
+          latitude,
+          longitude,
+        });
 
-      const response = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+        // console.log("response", response);
 
-      // console.log("response", response);
+        const address = await LocationGeocoding.reverseGeocodeAsync({
+          latitude,
+          longitude,
+        });
 
-      const address = await LocationGeocoding.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+        // console.log("address", address);
 
-      // console.log("address", address);
+        const streetAddress = address[0].district;
+        // console.log("response", streetAddress);
+        if (streetAddress === null) {
+          setStreetLocation(address[0].city);
+        } else {
+          setStreetLocation(streetAddress);
+        }
+        dispatchEvent(addStreetLocation(streetAddress));
+        setIsLoading(false);
 
-      const streetAddress = address[0].district;
-      //   console.log("response", streetAddress);
-      setStreetLocation(streetAddress);
-      dispatchEvent(addStreetLocation(streetAddress));
+        for (let item of response) {
+          const address = `${item.formattedAddress}`;
 
-      for (let item of response) {
-        const address = `${item.formattedAddress}`;
-
-        setDisplayCurrentLocation(address);
-        dispatchEvent(addUserLocation(address));
+          setDisplayCurrentLocation(address);
+          dispatchEvent(addUserLocation(address));
+        }
       }
+    } catch (error) {
+      setDisplayCurrentLocation("unable to fetch your location...");
+      setStreetLocation("Location not found...");
+      setIsLoading(false);
     }
   };
 
@@ -88,7 +97,8 @@ const UserLocation = () => {
       <Ionicons name="location-sharp" size={24} color="#ff0021" />
       <View className="ml-1">
         <Text className="text-[14px] text-[#ff0021]  font-[800] ">
-          {streetLocation ? streetLocation : "Set Your Location"}
+          {isLoading && <ActivityIndicator size="small" color="#ff0021" />}
+          {streetLocation || "Finding your location..."}
         </Text>
         <Text className="text-slate-800 text-[12px] font-semibold ">
           {displayCurrentLocation.slice(0, 30)}...

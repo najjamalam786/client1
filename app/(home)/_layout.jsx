@@ -10,12 +10,12 @@ const HomeLayout = () => {
       <PersistGate loading={null} persistor={persistor}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
-          <Stack.Screen name="hotel" />
           <Stack.Screen name="cart" />
           <Stack.Screen name="confirmOrder" />
           <Stack.Screen name="address" />
           <Stack.Screen name="addItems" />
           <Stack.Screen name="orderDetails" />
+          <Stack.Screen name="foodDetails" />
           <Stack.Screen name="seeorders" />
           <Stack.Screen name="user" />
         </Stack>

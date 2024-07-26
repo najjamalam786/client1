@@ -1,14 +1,14 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "expo-router";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { addCartItems } from "../redux/features/CartSlice";
 import axios from "axios";
+import { firebaseImage } from "../redux/features/ItemSlice";
 
 const FoodBox = ({ item, index }) => {
   const { cartItems } = useSelector((state) => state.cart);
-  const { userId } = useSelector((state) => state.user);
 
   const [qty, setQty] = useState(0);
 
@@ -17,23 +17,23 @@ const FoodBox = ({ item, index }) => {
   const dispatchEvent = useDispatch();
 
   useEffect(() => {
-    axios
-      .post(`${process.env.EXPO_PUBLIC_API_URL}/api/user/get-cart`, {
-        userId: userId,
-      })
-      .then((response) => {
-        if (response.data) {
-          for (let i = 0; i < response.data.length; i++) {
-            if (response.data[i]._id === item._id) {
-              setQty(response.data[i].quantity);
-            }
+    const fetchCartQty = () => {
+      if (cartItems.length > 0) {
+        for (let i = 0; i < cartItems.length; i++) {
+          if (cartItems[i]._id === item._id) {
+            return setQty(cartItems[i].quantity);
+          } else {
+            setQty(0);
           }
-        } else {
-          setQty(0);
         }
-      });
-    // console.log("useEffect");
-  }, []);
+      } else {
+        setQty(0);
+      }
+    };
+
+    fetchCartQty();
+  }, [cartItems]);
+
   const handleClick = async (items) => {
     // dispatchEvent(addCartItems(""));
     // console.log(items._id);
@@ -42,7 +42,8 @@ const FoodBox = ({ item, index }) => {
         if (cartItems) {
           for (let i = 0; i < cartItems.length; i++) {
             if (cartItems[i]._id === items._id) {
-              axios
+              setQty(cartItems[i].quantity + 1);
+              await axios
                 .post(
                   `${process.env.EXPO_PUBLIC_API_URL}/api/user/update-cart`,
                   {
@@ -52,7 +53,6 @@ const FoodBox = ({ item, index }) => {
                   }
                 )
                 .then((response) => {
-                  setQty(cartItems[i].quantity + 1);
                   dispatchEvent(addCartItems(response.data));
                 });
               return;
@@ -74,25 +74,29 @@ const FoodBox = ({ item, index }) => {
       console.log(error);
     }
   };
+
   return (
     <View key={index} className="px-4 ">
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => {
+          router.push({
+            pathname: "/foodDetails",
+            params: {
+              id: item._id,
+              day: item.day,
+              week: item.week,
+              name: item.name,
+              description: item.description,
+              price: item.price,
+              foodType: item.foodType,
+              aggregate_rating: item.aggregate_rating,
+            },
+          });
+          dispatchEvent(firebaseImage(item.imageURL));
+          // dispatchEvent(addCartItems([]));
+        }}
         className="bg-[#fefefe] shadow-xl rounded-b-[50px] rounded-t-[20px] "
-        onPress={
-          () => {}
-          // router.push({
-          //   pathname: "/hotel",
-          //   params: {
-          //     id: item.id,
-          //     name: item.name,
-          //     adress: item.adress,
-          //     smalladress: item.smalladress,
-          //     cuisines: item.cuisines,
-          //     aggregate_rating: item.aggregate_rating,
-          //   },
-          // })
-        }
         style={{ margin: 10 }}
       >
         <View>
@@ -114,12 +118,14 @@ const FoodBox = ({ item, index }) => {
             <Ionicons name="add" size={24} color="white" />
           </TouchableOpacity>
 
-          {qty > 0 && (
+          {qty > 0 ? (
             <Text className="absolute top-[-14px] right-0 font-[900] text-white bg-[#e80013] rounded-full px-[10px] py-[4px] ">
               {" "}
               {qty}
               {/* {index} */}
             </Text>
+          ) : (
+            ""
           )}
 
           {/* {selected ? (

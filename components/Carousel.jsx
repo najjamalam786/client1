@@ -1,5 +1,8 @@
 import { View, Text, Image, FlatList, Dimensions } from "react-native";
 import { useEffect, useRef, useState } from "react";
+import img1 from "../assets/1.png";
+import img2 from "../assets/2.png";
+import img3 from "../assets/3.png";
 
 const Carousel = () => {
   const flatlistRef = useRef();
@@ -12,28 +15,15 @@ const Carousel = () => {
     {
       id: "1",
 
-      image:
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: img1,
     },
     {
       id: "2",
-      image:
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: img2,
     },
     {
       id: "3",
-      image:
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=800",
-    },
-    {
-      id: "4",
-      image:
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=800",
-    },
-    {
-      id: "5",
-      image:
-        "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: img3,
     },
   ];
 
@@ -45,7 +35,7 @@ const Carousel = () => {
         className="flex items-center justify-center mt-[20px]"
       >
         <Image
-          source={{ uri: item.image }}
+          source={item.image}
           style={{ width: 370, height: 200 }}
           className="rounded-[20px] mx-2 shadow-[20px] "
         />
@@ -69,14 +59,14 @@ const Carousel = () => {
         return (
           <View
             key={index}
-            className="w-[10px] h-[10px] rounded-full mx-2 bg-[#1e9a1e70] "
+            className="w-[16px] h-[8px] rounded-full mx-2 bg-[#20b71270] "
           ></View>
         );
       } else {
         return (
           <View
             key={index}
-            className="w-[10px] h-[10px]  rounded-full mx-2 bg-gray-300"
+            className="w-[6px] h-[6px]  rounded-full mx-2 bg-gray-300"
           ></View>
         );
       }
