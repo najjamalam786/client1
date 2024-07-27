@@ -14,33 +14,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import UserLocation from "../../components/UserLocation";
-import { addCartItems } from "../../redux/features/CartSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import { addAllOrders } from "../../redux/features/OrderSlice.js";
-import axios from "axios";
+import { useSelector } from "react-redux";
 import Logout from "../../components/Logout.jsx";
 
 const UserPage = () => {
   const { userId } = useSelector((state) => state.user);
 
-  const dispatchEvent = useDispatch();
-
-  const orderHandler = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/order/get-user-orders`,
-        {
-          userId: userId,
-        }
-      );
-      if (response.data) {
-        dispatchEvent(addAllOrders(response.data));
-        router.push("/seeorders");
-      }
-    } catch (error) {
-      console.log("User order errors", error);
-    }
-  };
   return (
     <SafeAreaView className="flex-1 bg-[#d4edee81]">
       <ScrollView className="flex-1 bg-[#d4edee81]">
@@ -117,7 +96,7 @@ const UserPage = () => {
 
             <TouchableOpacity
               onPress={() => {
-                orderHandler();
+                router.push("/seeorders");
               }}
               className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >
@@ -138,7 +117,7 @@ const UserPage = () => {
           <View className="flex-row items-center mt-4">
             <TouchableOpacity
               onPress={() => {
-                router.push("/cart");
+                router.replace("/cart");
               }}
               className="flex items-center justify-center w-[180px]  rounded-[16px] pb-2 mx-[10px] border-[1px] border-gray-300 bg-white"
             >

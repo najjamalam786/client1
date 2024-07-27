@@ -67,6 +67,8 @@ const Address = () => {
 
   const confirmOrderHandler = async () => {
     try {
+      Alert.alert("Your Order Has Been Placed");
+
       await axios
         .post(`${process.env.EXPO_PUBLIC_API_URL}/api/order/create-order`, {
           userId: userId,

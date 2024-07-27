@@ -9,12 +9,11 @@ import { firebaseImage } from "../redux/features/ItemSlice";
 
 const FoodBox = ({ item, index }) => {
   const { cartItems } = useSelector((state) => state.cart);
-
+  const { userId } = useSelector((state) => state.user);
   const [qty, setQty] = useState(0);
+  const dispatchEvent = useDispatch();
 
   const router = useRouter();
-
-  const dispatchEvent = useDispatch();
 
   useEffect(() => {
     const fetchCartQty = () => {

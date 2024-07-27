@@ -7,7 +7,7 @@ const OrderItems = ({ orders }) => {
   // useEffect(() => {
   // }, []);
   return (
-    <View className="p-4 my-2 bg-white">
+    <View className="p-4 my-2 bg-white rounded-[16px]">
       <View className="flex-row items-center justify-between py-2">
         <View className="flex-row items-center space-x-1">
           <Text className="font-bold text-[14px] text-slate-800 ">
