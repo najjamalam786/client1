@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
@@ -46,19 +47,21 @@ const Order = () => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#25cb25]">
+    <SafeAreaView className="flex-1 bg-[#d4edee81]">
+      <StatusBar backgroundColor="#d4edee81" />
+
       <ScrollView>
         <View className="flex-row items-center justify-between h-[60px]  p-[10px] ">
           <View>
-            <Text className="text-[16px] font-[600] text-white">
+            <Text className="text-[16px] font-[600] text-black">
               Delivery in 25 mins
             </Text>
-            <Text className="text-[14px] font-[600] text-white">
+            <Text className="text-[14px] font-[600] text-black">
               Order placed at {time}
             </Text>
           </View>
 
-          <Text className="uppercase text-[18px] font-[600] text-white">
+          <Text className="uppercase text-[18px] font-[600] text-black">
             Help
           </Text>
         </View>

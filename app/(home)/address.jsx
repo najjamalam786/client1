@@ -1,4 +1,11 @@
-import { View, Text, Image, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Pressable,
+  StatusBar,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,7 +16,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
-import { userOrder } from "../../redux/features/OrderSlice.js";
 import { cleanCart } from "../../redux/features/CartSlice.js";
 import { addLocationCoordinates } from "../../redux/features/UserSlice.js";
 
@@ -20,6 +26,7 @@ const Address = () => {
   const { userId } = useSelector((state) => state.user);
   const { coordinate, userLocation } = useSelector((state) => state.user);
   const [displayCurrentLocation, setDisplayCurrentLocation] = useState(false);
+  const [userOrder, setUserOrder] = useState({});
   const dispatchEvent = useDispatch();
 
   const [state, setState] = useState({
@@ -67,8 +74,6 @@ const Address = () => {
 
   const confirmOrderHandler = async () => {
     try {
-      Alert.alert("Your Order Has Been Placed");
-
       await axios
         .post(`${process.env.EXPO_PUBLIC_API_URL}/api/order/create-order`, {
           userId: userId,
@@ -81,7 +86,10 @@ const Address = () => {
         })
         .then((response) => {
           if (response) {
-            dispatchEvent(userOrder(response.data));
+            // console.log("response", response.data);
+            setUserOrder(response.data);
+            Alert.alert("Your Order Has Been Placed");
+
             dispatchEvent(cleanCart());
             router.replace({
               pathname: "/confirmOrder",
@@ -97,7 +105,8 @@ const Address = () => {
 
   return (
     <SafeAreaView className="flex-1 ">
-      <ScrollView>
+      <StatusBar backgroundColor="#d4edee81" />
+      <ScrollView className="bg-[#d4edee81]">
         <View className="flex-1 ">
           <MapView
             ref={mapView}
@@ -138,9 +147,9 @@ const Address = () => {
         </View>
       </ScrollView>
 
-      <View className="flex-row items-center py-[8px] px-[20px] justify-between bg-[#FED000] rounded-t-[20px]">
+      <View className="flex-row items-center py-[6px] px-[20px] justify-around bg-white">
         <View>
-          <Text className="text-[22px] text-slate-800">Cash on Delivery</Text>
+          <Text className="text-[20px] text-slate-800">Cash on Delivery</Text>
         </View>
 
         <Pressable
