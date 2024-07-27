@@ -19,6 +19,7 @@ import Offer from "../../components/Offer";
 import TabBar from "../../components/TabBar";
 import { router } from "expo-router";
 import CartBox from "../../components/CartBox";
+import HotelList from "../../components/HotelList";
 
 const Home = () => {
   const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
@@ -126,6 +127,7 @@ const Home = () => {
           <Offer />
 
           <Categories />
+          <HotelList />
         </ScrollView>
         <CartBox />
         <TabBar />
